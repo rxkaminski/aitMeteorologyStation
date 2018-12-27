@@ -5,6 +5,7 @@
 #include <SoftwareSerial.h>
 #include "Libraries/PMS.h" // https://github.com/fu-hsi/PMS
 #include "Sensor.h"
+#include "Measurement.h"
 
 
 class PMSSensor : public Sensor
@@ -19,6 +20,10 @@ public:
 	String PM2_5();
 	String PM10_0();
 
+	String AveragePM1_0();
+	String AveragePM2_5();
+	String AveragePM10_0();
+
 	String Time();
 
 private:
@@ -30,9 +35,9 @@ private:
 	unsigned long _pmsDelay = millis();;
 	unsigned long _pmsSeconds = 0;
 
-	float _pm1_0 = 0.0f;
-	float _pm2_5 = 0.0f;
-	float _pm10_0 = 0.0f;
+	Measurement _pm1_0 = Measurement(3);
+	Measurement _pm2_5 = Measurement(3);
+	Measurement _pm10_0 = Measurement(3);
 
 };
 

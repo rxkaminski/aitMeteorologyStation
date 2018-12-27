@@ -1,4 +1,5 @@
 #include "Sensor.h"
+#include <Arduino.h>
 
 void Sensor::Saved()
 {
@@ -9,3 +10,9 @@ bool Sensor::IsNewMeasurements()
 {
 	return _isNewMeasurment;
 }
+
+
+
+
+
+

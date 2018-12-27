@@ -3,6 +3,7 @@
 
 #include <ESP8266WebServer.h>
 #include <WiFiClient.h>
+#include "Measurement.h"
 
 
 #define FIELD_MAX 7

@@ -1,6 +1,36 @@
 #include "DHTSensor.h"
 
 
+String DHTSensor::TemperatureInCelsius()
+{
+	return _temperatureInCelsius.CurrentToString();
+}
+
+String DHTSensor::Humidity()
+{
+	return _humidity.CurrentToString();
+}
+
+String DHTSensor::TemperaturInFahrenheit()
+{
+	return _temperaturInFahrenheit.CurrentToString();
+}
+
+String DHTSensor::AverageTemperatureInCelsius()
+{
+	return _temperatureInCelsius.AverageToString();
+}
+
+String DHTSensor::AverageHumidity()
+{
+	return _humidity.AverageToString();
+}
+
+String DHTSensor::AverageTemperaturInFahrenheit()
+{
+	return _temperaturInFahrenheit.AverageToString();
+}
+
 void DHTSensor::Setup()
 {
 	_dht.begin();
@@ -13,7 +43,7 @@ void DHTSensor::Loop()
 
 	unsigned long now = millis();
 
-	if (abs(now - _dhtDelay) < 30000) {
+	if (abs(now - _dhtDelay) < 2000) {
 		return;
 	}
 
@@ -26,33 +56,15 @@ void DHTSensor::Loop()
 		return;
 	}
 
-	_temperatureInCelsius = _dht.computeHeatIndex(t, h, false);
-	_temperaturInFahrenheit = _dht.computeHeatIndex(f, h);
-	_humidity = h;
+	_temperatureInCelsius.Add(_dht.computeHeatIndex(t, h, false));
+	_temperaturInFahrenheit.Add(_dht.computeHeatIndex(f, h));
+	_humidity.Add(h);
 
 	_dhtDelay = now;
 	_isNewMeasurment = true;
 
 }
 
-String DHTSensor::TemperatureInCelsius()
-{
-	static char tmpValue[7];
-	dtostrf(_temperatureInCelsius, 6, 2, tmpValue);
-	return String(tmpValue);
-}
-
-String DHTSensor::Humidity() {
-	static char tmpValue[7];
-	dtostrf(_humidity, 6, 2, tmpValue);
-	return String(tmpValue);
-}
-
-String DHTSensor::TemperaturInFahrenheit() {
-	static char tmpValue[7];
-	dtostrf(_temperaturInFahrenheit, 6, 2, tmpValue);
-	return String(tmpValue);
-}
 
 
 

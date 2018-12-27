@@ -19,7 +19,7 @@ void ThingSpeakController::SendMeasurements()
 {
 	unsigned long now = millis();
  
-	if (abs(now - _thingSpeakDelay) < 20000) 
+	if (abs(now - _thingSpeakDelay) < 30000) 
 	{
 		return;
 	}
@@ -84,5 +84,6 @@ void ThingSpeakController::Field(int index, String value)
 		_toSend[index] = true;
 	}
 }
+
 
 

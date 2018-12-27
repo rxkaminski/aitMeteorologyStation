@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <ESP8266WebServer.h>
 #include "html_index.h" 
+#include "Measurement.h"
 
 extern "C" {
   #include <user_interface.h>

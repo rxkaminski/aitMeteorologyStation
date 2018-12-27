@@ -4,6 +4,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include "Sensor.h"
+#include "Measurement.h"
 
 #define ONEWIRE_PIN 12
 #define SENSORS_NUM 2
@@ -17,13 +18,15 @@ public:
 
 	String GetAddressToString(DeviceAddress deviceAddress);
 	String Temperature(int index);
+	String AverageTemperature(int index);
+
 
 
 private:
 
 	unsigned long _oneWireDelay = millis();
 	int _numberOfDevices; 
-	float _temperature[SENSORS_NUM];
+	Measurement _temperature[SENSORS_NUM];
 
 	OneWire _oneWire = OneWire(ONEWIRE_PIN);
 	DallasTemperature _sensors = DallasTemperature(&_oneWire);

@@ -3,6 +3,11 @@
 
 #include <DHT.h>
 #include "Sensor.h"
+#include "Tools.h"
+#include "Measurement.h"
+
+#define DHT_AVERAGE 10
+
 
 class DHTSensor : public Sensor {
 public:
@@ -11,19 +16,26 @@ public:
 	String Humidity();
 	String TemperaturInFahrenheit();
 
+
+	String AverageTemperatureInCelsius();
+	String AverageHumidity();
+	String AverageTemperaturInFahrenheit();
+
 	void Setup();
 	void Loop();
+
 	
 private:
 
 	DHT _dht = DHT(14, DHT22); // (Pin, DHTTYPE) Initialize DHT sensor.
 
-	float _temperatureInCelsius = 0.0f;
-	float _temperaturInFahrenheit = 0.0f;
-	float _humidity = 0.0f;
+	Measurement _temperatureInCelsius = Measurement(10);
+	Measurement _temperaturInFahrenheit = Measurement(10);
+	Measurement _humidity = Measurement(10);
+
+
 
 	unsigned long _dhtDelay = millis();
-
 
 };
 

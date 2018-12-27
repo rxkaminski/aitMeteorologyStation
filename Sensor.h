@@ -10,6 +10,7 @@ public:
 
 protected:
 	bool _isNewMeasurment = false;
+
 };
 
 #endif

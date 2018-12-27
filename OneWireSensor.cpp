@@ -58,7 +58,7 @@ void OneWireSensor::Loop()
 
 	unsigned long now = millis();
 
-	if (abs(now - _oneWireDelay) < 30000)
+	if (abs(now - _oneWireDelay) < 2000)
 	{
 		return;
 	}
@@ -66,7 +66,7 @@ void OneWireSensor::Loop()
 	for (int i = 0; i < _numberOfDevices; i++)
 	{
 		float temperature = _sensors.getTempC(_deviceAddres[i]); //Measuring temperature in Celsius
-		_temperature[i] = temperature; //Save the measured value to the array
+		_temperature[i].Add(temperature); //Save the measured value to the array
 	}
 
 	_isNewMeasurment = true;
@@ -79,11 +79,21 @@ void OneWireSensor::Loop()
 
 String OneWireSensor::Temperature(int index)
 {
-	static char tmpValue[7];
 	if (index == 0 || index == 1)
 	{
-		dtostrf(_temperature[index], 6, 2, tmpValue);
-		return String(tmpValue);
+		return _temperature[index].CurrentToString();
+	}
+	else
+	{
+		return "Failed";
+	}
+}
+
+String OneWireSensor::AverageTemperature(int index)
+{
+	if (index == 0 || index == 1)
+	{
+		return _temperature[index].AverageToString();
 	}
 	else
 	{
